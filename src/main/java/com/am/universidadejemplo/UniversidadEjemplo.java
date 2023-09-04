@@ -1,6 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 package com.am.universidadejemplo;
 
@@ -14,5 +11,6 @@ public class UniversidadEjemplo {
         agregarAlumnos ventana=new agregarAlumnos();
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
+
     }
 }
