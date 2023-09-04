@@ -4,13 +4,15 @@
 
 package com.am.universidadejemplo;
 
-/**
- *
- * @author Alejandro
- */
+import com.am.universidadejemplo.gui.agregarAlumnos;
+
+
+
 public class UniversidadEjemplo {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        agregarAlumnos ventana=new agregarAlumnos();
+        ventana.setVisible(true);
+        ventana.setLocationRelativeTo(null);
     }
 }
