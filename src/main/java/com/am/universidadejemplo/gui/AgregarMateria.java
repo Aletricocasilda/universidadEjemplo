@@ -7,6 +7,7 @@ package com.am.universidadejemplo.gui;
 import com.am.universidadejemplo.logica.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -45,6 +46,7 @@ public class AgregarMateria extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +80,13 @@ public class AgregarMateria extends javax.swing.JFrame {
             }
         });
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -90,12 +99,15 @@ public class AgregarMateria extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1)
-                        .addComponent(txtMateria)
-                        .addComponent(txtAño, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
-                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(97, 97, 97))
+                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(txtMateria)
+                            .addComponent(txtAño, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(92, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,9 +126,11 @@ public class AgregarMateria extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -127,7 +141,7 @@ public class AgregarMateria extends javax.swing.JFrame {
                     .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 120, Short.MAX_VALUE)
+                        .addGap(59, 118, Short.MAX_VALUE)
                         .addComponent(btnSalir)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -157,7 +171,7 @@ public class AgregarMateria extends javax.swing.JFrame {
         nombre=txtMateria.getText();
         
         año=txtAño.getText();
-        if(cbEstado.getSelectedItem().toString().equalsIgnoreCase("activo")){
+        if(cbEstado.getSelectedItem().toString().equalsIgnoreCase("habilitada")){
         estado="1";
         }else{
             estado="0";
@@ -169,10 +183,10 @@ public class AgregarMateria extends javax.swing.JFrame {
             Connection conn=conexion.conn();
             
             
-//            String sql="INSERT INTO alumno VALUES (null,"+dni+",'"+apellido+"','"+nombre+"','"+fecha+"',"+estado+")";
-//            PreparedStatement stm=conn.prepareStatement(sql);
-//            stm.executeUpdate();
-//            JOptionPane.showMessageDialog(null, "Datos Cargados Exitosamente");
+            String sql="INSERT INTO materia VALUES (null,'"+nombre+"','"+año+"',"+estado+")";
+            PreparedStatement stm=conn.prepareStatement(sql);
+            stm.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Datos Cargados Exitosamente");
             
             
         } catch (SQLException ex) {
@@ -182,12 +196,61 @@ public class AgregarMateria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+            String nombre,año,estado;
+        nombre=txtMateria.getText();
+        
+        año=txtAño.getText();
+        if(cbEstado.getSelectedItem().toString().equalsIgnoreCase("habilitada")){
+        estado="1";
+        }else{
+            estado="0";
+        }
+        
+        
+        try {
+            Conexion conexion=new Conexion("universidadulp");
+            Connection conn=conexion.conn();
+            
+            
+            String sql="UPDATE materia SET nombre='"+nombre+"',año='"+año+"',estado="+estado+" WHERE nombre='"+nombre+"'";
+            PreparedStatement stm=conn.prepareStatement(sql);
+            stm.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Datos Cargados Exitosamente");
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error al realizar la consulta");
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            Conexion conexion=new Conexion("universidadulp");
+            Connection conn=conexion.conn();
+
+            String sql="SELECT * from materia where nombre='"+txtMateria.getText()+"'";
+            PreparedStatement stm=conn.prepareStatement(sql);
+            ResultSet resultado=stm.executeQuery();
+
+            if(resultado.next()){
+                txtAño.setText(resultado.getString("Año"));                
+                if(resultado.getInt("estado")==1){
+                    cbEstado.setSelectedItem("Habilitada");
+                }else{
+                    cbEstado.setSelectedItem("No habilitada");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "No se a encontrado ninguna materia con ese nombre");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error al realizar la consulta");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cargarCb() {
        cbEstado.addItem("Habilitada");
@@ -196,6 +259,7 @@ public class AgregarMateria extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JLabel jLabel1;
