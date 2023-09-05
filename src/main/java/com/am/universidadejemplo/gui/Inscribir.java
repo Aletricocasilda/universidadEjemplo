@@ -5,12 +5,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 public class Inscribir extends javax.swing.JFrame {
-
+    ArrayList<Materias> listaMate=new ArrayList<>();
+    ArrayList<Alumnos> listaAlu=new ArrayList<>();
     
     public Inscribir() {
         initComponents();
@@ -47,8 +51,13 @@ public class Inscribir extends javax.swing.JFrame {
         jLabel4.setText("Nota");
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Actualizar");
 
         jButton3.setText("Salir");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +142,23 @@ public class Inscribir extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int nota=Integer.parseInt(txtNota.getText());
+        int alumno=listaAlu.get(cbAlumno.getSelectedIndex()).getId();
+        int materia=listaMate.get(cbMateria.getSelectedIndex()).getIdMateria();
+        try {
+            Conexion con=new Conexion("universidadulp");
+            Connection conn=con.conn();
+            
+            String sql="Insert into inscripcion (nota,idMateria,idAlumno) Values ("+nota+","+materia+","+alumno+")";
+            PreparedStatement stm=conn.prepareStatement(sql);
+            stm.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Carga exitosa paa!");
+        } catch (SQLException ex) {
+            Logger.getLogger(Inscribir.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -159,7 +185,8 @@ public class Inscribir extends javax.swing.JFrame {
             ResultSet resultado=stm.executeQuery();
             
             while(resultado.next()){
-                cbAlumno.addItem(resultado.getInt("idAlumno")+" "+resultado.getString("nombre"));
+               cbAlumno.addItem(resultado.getString("nombre"));
+                listaAlu.add(new Alumnos(resultado.getInt("idAlumno"), resultado.getString("nombre")));
             }
             
             
@@ -179,6 +206,8 @@ public class Inscribir extends javax.swing.JFrame {
             
             while(resultado.next()){
                 cbMateria.addItem(resultado.getString("nombre"));
+                
+                listaMate.add(new Materias(resultado.getInt("idMateria"), resultado.getString("nombre")));
             }
             
             
