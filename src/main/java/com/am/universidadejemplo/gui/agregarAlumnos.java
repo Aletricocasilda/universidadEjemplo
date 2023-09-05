@@ -55,7 +55,7 @@ public class AgregarAlumnos extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Carga Alumnos");
 
