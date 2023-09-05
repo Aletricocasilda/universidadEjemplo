@@ -19,12 +19,12 @@ import javax.swing.JOptionPane;
  *
  * @author Sebastian
  */
-public class agregarAlumnos extends javax.swing.JFrame {
+public class AgregarAlumnos extends javax.swing.JFrame {
 
     /**
      * Creates new form agregarAlumnos
      */
-    public agregarAlumnos() {
+    public AgregarAlumnos() {
         initComponents();
         cargarCb();
     }

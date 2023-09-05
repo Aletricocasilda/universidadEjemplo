@@ -1,16 +1,17 @@
 
 package com.am.universidadejemplo;
 
-import com.am.universidadejemplo.gui.agregarAlumnos;
+import com.am.universidadejemplo.gui.Principal;
+import com.am.universidadejemplo.gui.AgregarAlumnos;
 
 
 
 public class UniversidadEjemplo {
 
     public static void main(String[] args) {
-        agregarAlumnos ventana=new agregarAlumnos();
-        ventana.setVisible(true);
-        ventana.setLocationRelativeTo(null);
+        Principal principal = new Principal();
+        principal.setVisible(true);
+        principal.setLocationRelativeTo(null);
 
     }
 }
