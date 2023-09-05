@@ -19,12 +19,12 @@ import javax.swing.JOptionPane;
  *
  * @author Sebastian
  */
-public class agregarAlumnos extends javax.swing.JFrame {
+public class AgregarAlumnos extends javax.swing.JFrame {
 
     /**
      * Creates new form agregarAlumnos
      */
-    public agregarAlumnos() {
+    public AgregarAlumnos() {
         initComponents();
         cargarCb();
     }
@@ -57,7 +57,7 @@ public class agregarAlumnos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("CRUD Alumnos");
+        jLabel1.setText("Carga Alumnos");
 
         jLabel2.setText("Nombre");
 
