@@ -72,7 +72,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemAlumnosActionPerformed
 
     private void menuItemMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMateriasActionPerformed
-        AgregarMaterias ventana=new AgregarMaterias();
+        AgregarMateria ventana=new AgregarMateria();
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
     }//GEN-LAST:event_menuItemMateriasActionPerformed
